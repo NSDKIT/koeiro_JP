@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>しくみの力｜Pulgrit</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Noto Sans JP', sans-serif; }
+    .gradient-text { background: linear-gradient(135deg, #1a1a1a, #4a4a4a, #8a8a8a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metallic-accent { background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #a8a8a8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .slide-up { animation: slideUp 0.8s ease-out forwards; opacity: 0; transform: translateY(30px); }
+    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 1s ease-out forwards; opacity: 0; }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .hover-scale { transition: transform 0.3s ease; } .hover-scale:hover { transform: scale(1.05); }
+    .bg-pattern { background-image: radial-gradient(circle at 25% 25%, #f0f0f0 2px, transparent 2px), radial-gradient(circle at 75% 75%, #e0e0e0 1px, transparent 1px); background-size: 50px 50px; }
+    .section-divider { height: 2px; background: linear-gradient(90deg, transparent, #c0c0c0, transparent); margin: 4rem 0; }
+    .cta-button {
+      background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+      border: 2px solid #c0c0c0;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-button:hover {
+      border-color: #e0e0e0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+  <nav class="fixed top-0 w-full z-50 bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-200">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-black gradient-text">
+        <a href="./index.html">PULGRIT</a>
+      </div>
+      <div class="hidden md:flex space-x-8">
+        <a href="#about" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'about')">しくみの力とは</a>
+        <a href="#features" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'features')">特徴</a>
+        <a href="#examples" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'examples')">導入事例</a>
+        <a href="#cta" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'cta')">相談する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="min-h-screen flex items-center bg-pattern relative overflow-hidden pt-20">
+    <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 opacity-80"></div>
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="slide-up">
+          <div class="metallic-accent text-lg font-semibold mb-4 tracking-wider">SHIKUMI POWER</div>
+          <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
+            <span class="gradient-text">手間のかかる業務</span><br>
+            <span class="text-gray-900">しくみに変える。</span>
+          </h1>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            属人化・Excel地獄・手作業…<br>
+            GASやAPIで、現場の"めんどう"をやさしく解決します。
+          </p>
+          <a href="#cta" class="cta-button px-8 py-4 text-lg font-semibold rounded-none relative inline-block">無料で相談する</a>
+          <a href="#cta" onclick="scrollToSection(event, 'cta')" class="cta-button px-8 py-4 text-lg font-semibold rounded-none relative inline-block">無料で相談する</a>
+        </div>
+        <div class="fade-in">
+          <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="しくみの力" class="w-full h-auto rounded-none shadow-2xl hover-scale">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Features -->
+  <section id="features" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-black mb-6 gradient-text">しくみの力の特徴</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white p-8 shadow-lg hover-scale">
+          <h3 class="text-xl font-bold mb-4">属人化からの解放</h3>
+          <p class="text-gray-600">ノウハウが一部の人に偏る業務を見える化・共有化。</p>
+        </div>
+        <div class="bg-white p-8 shadow-lg hover-scale">
+          <h3 class="text-xl font-bold mb-4">ツール選定から実装まで支援</h3>
+          <p class="text-gray-600">GASやPython、API連携などを現場に合う形で導入。</p>
+        </div>
+        <div class="bg-white p-8 shadow-lg hover-scale">
+          <h3 class="text-xl font-bold mb-4">テンプレとオーダーの併用</h3>
+          <p class="text-gray-600">よくある業務はテンプレ化、複雑な業務はフルカスタマイズ対応。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Examples -->
+  <section id="examples" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl md:text-5xl font-black mb-6 text-center gradient-text">導入事例</h2>
+      <div class="grid md:grid-cols-2 gap-12 mt-12">
+        <div class="bg-white p-6 shadow-lg">
+          <h3 class="text-xl font-bold mb-2">決済CSVの一括集計・可視化</h3>
+          <p class="text-gray-600">複数システムのデータを整形・統合し、月次レポート作業を80%削減。</p>
+        </div>
+        <div class="bg-white p-6 shadow-lg">
+          <h3 class="text-xl font-bold mb-2">Shopify記事の自動生成＆保存</h3>
+          <p class="text-gray-600">記事タイトル・本文を自動生成し、投稿作業を1/5に短縮。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CTA -->
+  <section id="cta" class="py-20 bg-gray-900 text-white text-center">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl md:text-5xl font-black mb-6">まずは相談してみませんか？</h2>
+      <p class="text-xl text-gray-300 mb-8">「うちもExcel地獄…」「GASって何？」という方でも大丈夫。<br>ヒアリング・ツール選定から伴走します。</p>
+      <a href="#" class="bg-white text-gray-900 py-4 px-8 text-lg font-semibold hover:bg-gray-100 transition">無料で相談する</a>
+    </div>
+  </section>
+
+  <footer class="bg-black text-white py-12">
+    <div class="container mx-auto px-6 text-center">
+      <div class="text-3xl font-black metallic-accent mb-4">PULGRIT</div>
+      <p class="text-gray-400">本音で動く人が、ちゃんと報われる社会を。</p>
+      <p class="text-gray-500 text-sm mt-4">&copy; 2024 Pulgrit Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+ <script>
+   // Smooth scrolling function
+   function scrollToSection(event, sectionId) {
+     event.preventDefault();
+     const target = document.getElementById(sectionId);
+     if (target) {
+       target.scrollIntoView({
+         behavior: 'smooth',
+         block: 'start'
+       });
+     }
+   }
+ </script>
+</body>
+</html>

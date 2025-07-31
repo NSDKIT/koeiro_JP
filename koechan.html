@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>声キャン！ - 届いてない声がある。</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1a1a1a, #4a4a4a, #8a8a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .metallic-accent {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #a8a8a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .bg-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, #f0f0f0 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, #e0e0e0 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #c0c0c0, transparent);
+            margin: 4rem 0;
+        }
+        
+        .step-connector {
+            position: relative;
+        }
+        
+        .step-connector::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -2rem;
+            width: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, #c0c0c0, #e0e0e0);
+            transform: translateY(-50%);
+        }
+        
+        .step-connector:last-child::after {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .step-connector::after {
+                display: none;
+            }
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border: 2px solid #c0c0c0;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(192, 192, 192, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            border-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c0c0c0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black gradient-text">
+                <a href="./index.html">PULGRIT</a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'about')">声キャン！とは</a>
+                <a href="#process" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'process')">プロジェクト内容</a>
+                <a href="#features" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'features')">特徴</a>
+                <a href="#cta" class="nav-link text-gray-700 hover:text-gray-900" onclick="scrollToSection(event, 'cta')">申し込み</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-700 hover:text-gray-900">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center bg-pattern relative overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 opacity-80"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="slide-up">
+                    <div class="metallic-accent text-lg font-semibold mb-4 tracking-wider">
+                        KOECAN!
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
+                        <span class="gradient-text">届いてない</span><br>
+                        <span class="text-gray-900">声がある。</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        だから、「声キャン！」は始まった。<br>
+                        学生の声を活かして、企業の採用発信を「届く」形に変える。
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="cta-button px-8 py-4 text-lg font-semibold rounded-none relative">
+                            モニター企業として参加
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        <a href="#cta" onclick="scrollToSection(event, 'cta')" class="border-2 border-gray-300 px-8 py-4 text-lg font-semibold hover:border-gray-400 transition-colors inline-block text-center">
+                            詳細資料をダウンロード
+                        </a>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+                         alt="SNS分析データを見て困る企業HR担当者" 
+                         class="w-full h-auto rounded-none shadow-2xl hover-scale">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-6 gradient-text">
+                    声キャン！とは？
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    企業の採用SNS・インターン広報の「伝わらなさ」を可視化し、<br>
+                    学生の声を活かして改善するプロジェクト。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <img src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+                         alt="学生が企業にフィードバックを提供している様子" 
+                         class="w-full h-auto rounded-none shadow-xl">
+                </div>
+                <div class="space-y-8">
+                    <div class="border-l-4 border-gray-300 pl-6">
+                        <h3 class="text-2xl font-bold mb-3">企業の採用発信の課題</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            SNS投稿が「見られてない」現実。エンゲージメント率の低さ、
+                            学生に刺さらないメッセージ。選ばれてる理由より、選ばれない理由を知る必要性。
+                        </p>
+                    </div>
+                    <div class="border-l-4 border-gray-800 pl-6">
+                        <h3 class="text-2xl font-bold mb-3">声キャン！の価値</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            オリジナルアンケートによる学生の生の声の収集。
+                            属性分析×回答傾向×改善レポートで、本当に届く採用コンテンツを提案。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-6 gradient-text">
+                    プロジェクト内容
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    データドリブンなアプローチで採用発信を「届く」形に改善
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center step-connector">
+                    <div class="w-20 h-20 bg-gray-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                        1
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">現状分析・課題特定</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        既存の採用SNSやコンテンツを詳細分析。
+                        エンゲージメント率や学生の反応データから課題を特定します。
+                    </p>
+                </div>
+                
+                <div class="text-center step-connector">
+                    <div class="w-20 h-20 bg-gray-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                        2
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">学生アンケート実施</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        オリジナルアンケートで学生の生の声を収集。
+                        属性別の傾向分析で、ターゲット学生のインサイトを可視化します。
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gray-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                        3
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">改善提案・実装支援</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        分析結果をもとに具体的な改善策を提案。
+                        新しいコンテンツ制作から配信戦略まで包括的にサポートします。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-6 gradient-text">
+                    声キャン！の特徴
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 shadow-lg hover-scale">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-chart-bar text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">データドリブン分析</h3>
+                    <p class="text-gray-600">
+                        感覚ではなく、数値とデータに基づいた客観的な現状把握と改善提案を実施。
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 shadow-lg hover-scale">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-users text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">学生の生の声</h3>
+                    <p class="text-gray-600">
+                        表面的なフィードバックではなく、学生の本音と深層心理を引き出すアンケート設計。
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 shadow-lg hover-scale">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-target text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">属性別傾向分析</h3>
+                    <p class="text-gray-600">
+                        学年、専攻、志向性別に細分化した分析で、ターゲットに最適なアプローチを特定。
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 shadow-lg hover-scale">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-lightbulb text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">実行可能な改善案</h3>
+                    <p class="text-gray-600">
+                        理想論ではなく、リソースと現実を考慮した具体的で実装可能な改善策を提供。
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 shadow-lg hover-scale">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-rocket text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">継続的サポート</h3>
+                    <p class="text-gray-600">
+                        一度の提案で終わりではなく、実装後の効果測定と継続的な改善をサポート。
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 shadow-lg hover-scale">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-heart text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">本音のコミュニケーション</h3>
+                    <p class="text-gray-600">
+                        企業と学生の間にある見えない壁を取り払い、本音でのコミュニケーションを実現。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- CTA Section -->
+    <section id="cta" class="py-20 bg-gray-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-pattern opacity-10"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-black mb-6">
+                届ける、<br>
+                <span class="metallic-accent">本当の声を。</span>
+            </h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+                学生に届いていない採用発信を、<br>
+                データと学生の声で「届く」形に変える。<br>
+                声キャン！で、新しい採用コミュニケーションを。
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-10 p-8 rounded-none border border-gray-700 hover:border-gray-500 transition-colors">
+                    <h3 class="text-2xl font-bold mb-4">モニター企業募集</h3>
+                    <p class="text-gray-300 mb-6">
+                        採用発信の効果を高めたい企業様、モニタープログラムにご参加ください。
+                    </p>
+                    <button class="w-full bg-white text-gray-900 py-4 px-6 text-lg font-semibold hover:bg-gray-100 transition-colors">
+                        モニター申請する
+                        <i class="fas fa-clipboard-check ml-2"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 p-8 rounded-none border border-gray-700 hover:border-gray-500 transition-colors">
+                    <h3 class="text-2xl font-bold mb-4">詳細相談・お問い合わせ</h3>
+                    <p class="text-gray-300 mb-6">
+                        プロジェクトの詳細や料金について、まずはお気軽にご相談ください。
+                    </p>
+                    <button class="w-full bg-white text-gray-900 py-4 px-6 text-lg font-semibold hover:bg-gray-100 transition-colors">
+                        お問い合わせ
+                        <i class="fas fa-envelope ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-3xl font-black mb-4 metallic-accent">
+                        PULGRIT
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        本音で動く人が、<br>
+                        ちゃんと報われる社会を。
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">サービス</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="./index.html" class="hover:text-white transition-colors">ホーム</a></li>
+                        <li><a href="./shikuminotikara.html" class="hover:text-white transition-colors">しくみの力</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">お問い合わせ</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">企業向け問い合わせ</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">学生向けサポート</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Pulgrit Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling function
+        function scrollToSection(event, sectionId) {
+            event.preventDefault();
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('slide-up')) {
+                        entry.target.style.animationDelay = '0.2s';
+                        entry.target.classList.add('animate');
+                    }
+                    if (entry.target.classList.contains('fade-in')) {
+                        entry.target.style.animationDelay = '0.5s';
+                        entry.target.classList.add('animate');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.slide-up, .fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle (placeholder)
+        const mobileMenuBtn = document.querySelector('.md\\:hidden button');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                // Mobile menu implementation would go here
+                console.log('Mobile menu clicked');
+            });
+        }
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-white');
+                nav.classList.remove('bg-opacity-95');
+            } else {
+                nav.classList.add('bg-opacity-95');
+                nav.classList.remove('bg-white');
+            }
+        });
+    </script>
+</body>
+</html>
